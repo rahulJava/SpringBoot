@@ -2,27 +2,48 @@ package com.luv2code.springboot.cruddemo.dao;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.springboot.cruddemo.entity.Employee;
 
-@Repository
+@Repository("employeeDAOHibernateImpl")
 public class EmployeeDAOHibernateImpl implements EmployeeDAO {
 
+	int i;
+	int j  ;
 	
-	private EntityManager entityManager;
+	EmployeeDAOHibernateImpl( @Value("2") int i  , @Value("2") int j){
+		this.i = i;
+		this.j = j;
+	}
+
+
 	
 	@Autowired
-	public  EmployeeDAOHibernateImpl(EntityManager theEntityManager)
-	{
-		entityManager=theEntityManager;
+	private EntityManager entityManager;
+	
+	@PostConstruct
+	public void postConstruct() {
+		i = 20;
+		System.out.println("Bean initialized....");
+		
 	}
+	
+	@PreDestroy
+	public void PreDestroy() {
+		System.out.println("All the connections closed Successfully...");
+		
+	}
+	
+	
 	
 	@Override
 	public List<Employee> findAll() {
