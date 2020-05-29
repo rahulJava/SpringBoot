@@ -1,0 +1,31 @@
+
+
+public class RemoveElements {
+	
+	 public ListNode removeElements(ListNode head, int val) {
+	        
+	        if(head==null)
+	            return null;
+	        
+	        ListNode fakeHead= new ListNode(-1);
+	        fakeHead.next=head;
+	        ListNode curr=head;
+	        ListNode prev=fakeHead;
+	        
+	        while(curr!=null)
+	        {
+	            if(curr.val==val)
+	            {
+	                prev.next=curr.next;
+	            }
+	            else
+	            {
+	                prev=prev.next;
+	            }
+	            curr=curr.next;
+	        }
+	        return fakeHead.next;
+	        
+	        }
+
+}
